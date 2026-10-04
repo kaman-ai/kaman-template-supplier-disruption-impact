@@ -1,67 +1,27 @@
 {
   "name": "Supplier Disruption Impact Analyst",
   "agents": {
-    "graph_analyst": "62d1816b-22b4-5790-85ef-7ab3e1a672cf",
-    "inventory_analyst": "376bb581-5f7d-5d11-9c2a-8f8ace8988ee",
-    "planner_agent": "c3c075b5-f9f7-532f-bc98-c3bbaad60743"
+    "graph_analyst": "8ebf59e5-bbdc-5639-b011-b3ee0f360a83",
+    "inventory_analyst": "67f97ad3-0829-5499-b37e-4e96ac346f7e",
+    "planner_agent": "c4ec5c05-04a6-57dd-9a79-b02335477e5f"
   },
   "workflows": {
-    "flow": "0e2b587a-3557-5424-8901-7069c79f85a2"
+    "flow": "ec4249ba-ce88-59aa-84b6-daa24cebff79"
+  },
+  "scenarios": {
+    "desk": "b22571bf-83e8-5f9d-b187-d2492830a19f"
   },
   "ui": {
     "title": "Supplier Disruption Impact Analyst",
     "tagline": "When a supplier or site goes down, walks the supply graph to every part, product and customer order that depends on it, checks stock cover in parallel, quantifies days short and revenue at risk, and raises the mitigation a planner approves.",
-    "actions": [
-      {
-        "id": "run",
-        "label": "Run: Supplier disruption impact",
-        "description": "A supplier or site disruption is reported. Kaman walks the supply graph to the products and customer orders that depend on it, checks stock cover in parallel, quantifies the impact, and - for critical impact - proposes a mitigation that a planner approves before any order is placed.",
-        "kind": "workflow",
-        "target": "flow",
-        "wrap": "payload",
-        "inputs": [
-          {
-            "name": "supplier",
-            "label": "Supplier",
-            "kind": "text",
-            "default": "SUP-0412"
-          },
-          {
-            "name": "site",
-            "label": "Site",
-            "kind": "text",
-            "default": "Plant 3 (Pune)"
-          },
-          {
-            "name": "event",
-            "label": "Event",
-            "kind": "text",
-            "default": "Fire at the supplier's moulding line; output halted for an estimated 3 weeks"
-          },
-          {
-            "name": "reported_at",
-            "label": "Reported at",
-            "kind": "text",
-            "default": "2026-10-01T05:30:00Z"
-          }
-        ]
-      },
-      {
-        "id": "ask",
-        "label": "Ask the Supply Graph Analyst",
-        "description": "Traces which items, products and open orders depend on a supplier.",
-        "kind": "agent",
-        "target": "graph_analyst",
-        "prompt": "{{question}}",
-        "inputs": [
-          {
-            "name": "question",
-            "label": "Your question",
-            "kind": "text",
-            "default": "Trace what depends on supplier SUP-0412 at Plant 3."
-          }
-        ]
-      }
-    ]
+    "run": "Run: Supplier disruption impact",
+    "chat": {
+      "agent": "graph_analyst",
+      "title": "Ask the Supply Graph Analyst",
+      "suggestions": [
+        "The SuiteQL trace for SUP-0412 returned parts [P-88 → products X1, X2], orders [{order: SO5, customer: C3, product: X1, due: 2026-10-20, value: 50000}]. Reply as instructed.",
+        "Trace what depends on supplier SUP-0412 at Plant 3."
+      ]
+    }
   }
 }
